@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   def index
     if params[:search]
       @products = Product.search(params[:search]).paginate(:page => params[:page], :per_page => 10).order('created_at desc')
+      @products.each{
+        |x|
+        puts "#{x.title}"
+      }
     else
       @products = Product.paginate(:page => params[:page], :per_page => 10).order('created_at desc')
     end
@@ -21,10 +25,6 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
-  end
-
-  def search
-    puts "Hello..."
   end
 
   # POST /products or /products.json
